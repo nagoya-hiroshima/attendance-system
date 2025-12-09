@@ -1,0 +1,66 @@
+・java -version
+openjdk version "17.0.8"  ← OK
+
+
+・javac -version
+javac 17.0.8              ← OK
+ダメだった場合はJDKを入れる
+
+
+・https://adoptium.net/temurin/releases/
+ちょい下にある"JDK 17-LTS"を選んで、Windowsのところの「Temurin 17.0.17+10 - 10/31/2025」をmsi形式でダウンロード
+
+
+・ダウンロードした「OpenJDK17U-jdk_x64_windows_hotspot_17.0.17_10.msi」を実行。
+使用許諾契約書の次のやつはとりあえず「Install just for you」にして進める
+
+
+・Windows検索→「環境変数の編集」
+→"ユーザー環境変数"「新規」
+→変数名：JAVA_HOME
+→変数値：インストールされたとこ。たぶん
+「C:\Users\(ユーザ名)\AppData\Local\Programs\Eclipse Adoptium\jdk-17.0.17.10-hotspot」とか
+→「OK」
+
+
+・「Path」を選んで「編集」
+→「新規」→ %JAVA_HOME%\bin
+→「OK」→「OK」
+
+
+・PowerShell を再起動して、
+java -version
+javac -version
+JDKは使えるようになってるはず
+
+
+・mvn -version
+これはたぶんエラー出る
+
+
+・https://maven.apache.org/download.cgi
+ちょい下の"Files"から"Binary zip archive"の「apache-maven-3.9.6-bin.zip」をダウンロードして適当な場所でZIPファイルを解凍
+
+
+・Windows検索→「環境変数の編集」
+→「Path」を選んで「編集」
+→「新規」→ さっき解凍したやつのbinフォルダまでのパスを入れる。
+「C:\Users\(ユーザ名)\Downloads\apache-maven-3.9.11-bin\apache-maven-3.9.11\bin」とか
+→「OK」→「OK」
+
+
+・PowerShell を再起動して、
+mvn -version
+いろいろ出てきたら成功
+
+
+・スタート →「コントロールパネル」
+→「システムとセキュリティ」
+→「システム」→「システムの詳細設定」
+→「環境変数(N)…」
+→"システム環境変数"の「JAVA_HOME」を選んで編集
+→たぶん「C:\Program Files\Java\jre1.8.0_451」とかになってるから、さっき「JAVA HOME」で登録したパスを入れる
+→「OK」→「OK」
+
+
+・./mvnw test -Dtest=DeployRepositoryTest
