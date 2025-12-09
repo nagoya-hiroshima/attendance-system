@@ -1,5 +1,6 @@
 package attendance.system.attendance.controller;
 
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,26 +11,31 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/api/login")
 public class SessionController {
 
-    /** ① ログイン画面表示 */
+    private static final String DEMO_USER_ID = "1001";
+    private static final String DEMO_PASSWORD = "password";
+
     @GetMapping("/auth")
     public String showLoginPage() {
-        return "login";
+        return "index";
     }
 
-    /** ② ログイン処理 */
     @PostMapping("/auth")
-    public String login(
-            @RequestParam("user_id") Long user_id,
-            @RequestParam("password") String password) {
+    public String login(@RequestParam("user_id") String userId,
+                        @RequestParam("password") String password,
+                        HttpSession session) {
 
-        System.out.println("ログイン試行: user_id=" + user_id + ", password=" + password);
-
-        return "redirect:/attendance";
+        if (DEMO_USER_ID.equals(userId) && DEMO_PASSWORD.equals(password)) {
+            session.setAttribute("userId", userId);
+            return "redirect:/api/attendance/auth";
+        } else {
+            session.setAttribute("loginError", "ユーザーIDかパスワードが間違っています");
+            return "redirect:/api/login/auth";
+        }
     }
 
-    /** ③ ログアウト処理 */
     @GetMapping("/logout")
-    public String logout() {
-        return "redirect:/api/login/auth"; // ← 修正！
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/api/login/auth";
     }
 }

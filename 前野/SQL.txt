@@ -1,9 +1,9 @@
 V1__create_T_USER.sql
 CREATE TABLE T_USER (
-    user_id        BIGSERIAL PRIMARY KEY,       -- auto_increment / NOT NULL
+    user_id        BIGSERIAL PRIMARY KEY,
     name           VARCHAR(100) NOT NULL,
     password       VARCHAR(255) NOT NULL,
-    deploy_id      INTEGER,                     -- 部署ID
+    deploy_id      INTEGER,
     work_place     VARCHAR(100),
     mail_address   VARCHAR(200),
     telephone_num  VARCHAR(50),
@@ -17,16 +17,16 @@ CREATE TABLE T_USER (
 
 V2__create_T_KINTAI.sql
 CREATE TABLE T_KINTAI (
-    attendance_id BIGSERIAL PRIMARY KEY,         -- 勤怠管理ID（自動採番）
-    id            BIGINT NOT NULL,               -- ユーザID（外部キー）
-    clockin_time  TIMESTAMP NOT NULL,            -- 出勤日時
-    clockout_time TIMESTAMP NOT NULL             -- 退勤日時
+    attendance_id BIGSERIAL PRIMARY KEY,
+    id            BIGINT NOT NULL,
+    clockin_time  TIMESTAMP NOT NULL,
+    clockout_time TIMESTAMP NOT NULL
 );
 
 
 
 V3__create_T_BUSHO
 CREATE TABLE T_BUSHO (
-    deploy_id   INTEGER PRIMARY KEY,      -- 部署ID（手動採番 or 別管理）
-    deploy_name VARCHAR(100) NOT NULL     -- 部署名
+    deploy_id   INTEGER PRIMARY KEY,
+    deploy_name VARCHAR(100) NOT NULL
 );

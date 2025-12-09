@@ -12,36 +12,35 @@
 
     <form th:action="@{/api/login/auth}" method="post" class="login-form">
         <!-- ユーザID -->
-        <div class="form-row">
+        <div class="form-row flex-row">
             <label for="user_id">ユーザID</label>
             <input type="text"
-                   id="user_id"
-                   name="user_id"
-                   maxlength="10"
-                   required
-                   pattern="[0-9]+"
-                   placeholder="ユーザIDを入力">
+                id="user_id"
+                name="user_id"
+                maxlength="10"
+                required
+                pattern="[0-9]+"
+                placeholder="ユーザIDを入力">
+            <div class="eye-placeholder"></div> <!-- 👁 と同じ幅の空白 -->
         </div>
 
         <!-- パスワード -->
-        <div class="form-row password-row">
+        <div class="form-row flex-row">
             <label for="password">パスワード</label>
+            <input type="password"
+                id="password"
+                name="password"
+                maxlength="32"
+                required
+                placeholder="パスワードを入力">
 
-            <div class="password-wrapper">
-                <input type="password"
-                       id="password"
-                       name="password"
-                       maxlength="32"
-                       required
-                       placeholder="パスワードを入力">
-
-                <button type="button"
-                        id="togglePassword"
-                        class="eye-button">
-                    👁
-                </button>
-            </div>
+            <button type="button"
+                    id="togglePassword"
+                    class="eye-button">
+                👁
+            </button>
         </div>
+
 
         <!-- ログインボタン -->
         <div class="button-area">
