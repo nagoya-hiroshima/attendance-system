@@ -1,7 +1,104 @@
 <!DOCTYPE html>
-<html>
-<head><meta charset="UTF-8"><title>勤怠一覧</title></head>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>勤怠状況一覧</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/attendance_list.css}">
+</head>
+
 <body>
-<h1>勤怠一覧画面</h1>
+<div class="main-frame">
+
+    <h2>勤怠状況一覧（〇〇部署）</h2>
+    <div class="legend">
+        <div class="legend-item">
+            <span class="legend-box working"></span>
+            <span>出勤中</span>
+        </div>
+        <div class="legend-item">
+            <span class="legend-box not-working"></span>
+            <span>未出勤</span>
+        </div>
+    </div>
+
+
+    <!-- 表示項目選択 -->
+    <div class="radio-area">
+        <label>
+            <input type="checkbox" class="check-item" data-col="work">
+            勤務場所
+        </label>
+        <label>
+            <input type="checkbox" class="check-item" data-col="mail">
+            メールアドレス
+        </label>
+        <label>
+            <input type="checkbox" class="check-item" data-col="tel">
+            電話番号
+        </label>
+        <label>
+            <input type="checkbox" class="check-item" data-col="emergency">
+            緊急連絡先
+        </label>
+        <label>
+            <input type="checkbox" id="check-all">
+            全て
+        </label>
+    </div>
+
+
+    <!-- 一覧 -->
+    <table class="list-table">
+        <thead>
+        <tr>
+            <th>名前</th>
+            <th class="col-work hidden">勤務場所</th>
+            <th class="col-mail hidden">メールアドレス</th>
+            <th class="col-tel hidden">電話番号</th>
+            <th class="col-emergency hidden">緊急連絡先</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <!-- 出勤中 -->
+        <tr class="working">
+            <td>名古屋 広島</td>
+            <td class="col-work hidden">リモート</td>
+            <td class="col-mail hidden">nagoya.hiroshima@123</td>
+            <td class="col-tel hidden">123456789</td>
+            <td class="col-emergency hidden">9876543210</td>
+        </tr>
+
+        <tr>
+            <td>仙台 福岡</td>
+            <td class="col-work hidden">仙台事務所</td>
+            <td class="col-mail hidden">sendai.fukuoka@456</td>
+            <td class="col-tel hidden">111222333</td>
+            <td class="col-emergency hidden">4444555666</td>
+        </tr>
+
+        <!-- 出勤中 -->
+        <tr class="working">
+            <td>京都 大阪</td>
+            <td class="col-work hidden">リモート</td>
+            <td class="col-mail hidden">kyo.osaka@001</td>
+            <td class="col-tel hidden">105106107</td>
+            <td class="col-emergency hidden">108109110</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- 戻る -->
+    <div class="back-area">
+    <button class="back-btn"onclick="location.href='/api/attendance/auth'">
+        戻る
+    </button>
+</div>
+
+
+</div>
+
+<script src="/js/attendance_list.js"></script>
 </body>
 </html>
