@@ -40,6 +40,17 @@ public class User {
     @Column(name = "update_time")
     private LocalDateTime updateTime;
 
+    @PrePersist
+    public void onCreate() {
+        this.insertTime = LocalDateTime.now();
+        this.updateTime = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    public void onUpdate() {
+        this.updateTime = LocalDateTime.now();
+    }
+
     public User() {}
 
     // Getter / Setter

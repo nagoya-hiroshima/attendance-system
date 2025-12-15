@@ -1,6 +1,5 @@
 package attendance.system.attendance.test;
 
-
 import org.springframework.boot.test.context.SpringBootTest;
 
 import attendance.system.attendance.model.Deploy;
