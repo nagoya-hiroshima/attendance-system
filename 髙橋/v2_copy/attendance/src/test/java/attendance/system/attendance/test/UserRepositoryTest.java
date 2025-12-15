@@ -7,13 +7,15 @@ import attendance.system.attendance.repository.DeployRepository;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
+import org.springframework.boot.jdbc.test.autoconfigure.AutoConfigureTestDatabase;
 
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE) // ★追加
 class UserRepositoryTest {
 
     @Autowired
@@ -27,6 +29,7 @@ class UserRepositoryTest {
 
         // 部署を先に作る（Deploy は外部キーなので）
         Deploy deploy = new Deploy();
+        deploy.setDeployId(1);          // ★手動でIDセット（必須）
         deploy.setDeployName("営業部");
         Deploy savedDeploy = deployRepository.save(deploy);
 
