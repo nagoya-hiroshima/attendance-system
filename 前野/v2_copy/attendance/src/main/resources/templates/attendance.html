@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>勤怠入力</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="stylesheet" th:href="@{/css/attendance.css}">
 </head>
 <body>
@@ -31,8 +32,8 @@
 
         <!-- 日付と時刻 -->
         <div class="datetime">
-            <div class="date-text" id="today-date">2025/10/22(水)</div>
-            <div class="time-text" id="current-time">14:00:00</div>
+            <div class="date-text" id="today-date"></div>
+            <div class="time-text" id="current-time"></div>
         </div>
 
         <!-- 勤務場所 -->
@@ -63,36 +64,7 @@
     </div>
 
 </div>
-
-<script>
-function logoutConfirm() {
-    if (confirm("ログアウトしますか？")) {
-        location.href = "/api/login/logout";
-    }
-}
-
-// 出勤ボタンに勤務場所を渡す
-document.querySelector(".clockin").addEventListener("click", function () {
-    document.getElementById("work_place_in").value =
-        document.getElementById("work_place").value;
-});
-
-// 時計の動作
-function updateClock() {
-    const now = new Date();
-
-    const wdays = ["日","月","火","水","木","金","土"];
-    const dateStr = `${now.getFullYear()}/${now.getMonth()+1}/${now.getDate()}(${wdays[now.getDay()]})`;
-
-    document.getElementById("today-date").textContent = dateStr;
-
-    const timeStr = now.toLocaleTimeString("ja-JP", { hour12: false });
-    document.getElementById("current-time").textContent = timeStr;
-}
-setInterval(updateClock, 1000);
-updateClock();
-</script>
-
+<script src="/js/attendance.js"></script>
 </body>
 </html>
 
