@@ -1,4 +1,4 @@
-package attendance.system.main.dto;
+package attendance.system.attendance.dto;
 
 public class UpdateUserRequest {
     
