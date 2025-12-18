@@ -12,15 +12,18 @@
     <h1 class="title">勤怠管理システム</h1>
 
     <form th:action="@{/api/login/auth}" method="post" class="login-form">
+
+        <div th:if="${session.loginError}" class="error-message">
+            <p th:text="${session.loginError}"></p>
+        </div>
+        
         <!-- ユーザID -->
         <div class="form-row flex-row">
             <label for="user_id">ユーザID</label>
-            <input type="text"
+            <input type="nu"
                 id="user_id"
                 name="user_id"
-                maxlength="10"
                 required
-                pattern="[0-9]+"
                 placeholder="ユーザIDを入力">
             <div class="eye-placeholder"></div> <!-- 👁 と同じ幅の空白 -->
         </div>
