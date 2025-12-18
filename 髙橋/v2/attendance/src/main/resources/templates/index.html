@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>勤怠管理システム</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/login.css}">
+    <script defer th:src="@{/js/login.js}"></script>
+</head>
+<body>
+<div class="login-container">
+    <h1 class="title">勤怠管理システム</h1>
+
+    <form th:action="@{/api/login/auth}" method="post" class="login-form">
+        <!-- ユーザID -->
+        <div class="form-row flex-row">
+            <label for="user_id">ユーザID</label>
+            <input type="text"
+                id="user_id"
+                name="user_id"
+                maxlength="10"
+                required
+                pattern="[0-9]+"
+                placeholder="ユーザIDを入力">
+            <div class="eye-placeholder"></div> <!-- 👁 と同じ幅の空白 -->
+        </div>
+
+        <!-- パスワード -->
+        <div class="form-row flex-row">
+            <label for="password">パスワード</label>
+            <input type="password"
+                id="password"
+                name="password"
+                maxlength="32"
+                required
+                placeholder="パスワードを入力">
+
+            <button type="button"
+                    id="togglePassword"
+                    class="eye-button">
+                👁
+            </button>
+        </div>
+
+
+        <!-- ログインボタン -->
+        <div class="button-area">
+            <button type="submit" class="login-button">ログイン</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>
