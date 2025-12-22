@@ -38,4 +38,14 @@ public class UserRestController {
         return userService.updateUser(request);
     }
 
+    // ログイン処理
+    @PostMapping("/login")
+    public User login(
+            @RequestParam Long userId,
+            @RequestParam String password
+    ) {
+        return userService.login(userId, password);
+    }
+
+
 }
