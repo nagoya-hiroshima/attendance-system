@@ -8,7 +8,6 @@ import attendance.system.attendance.repository.AttendanceRepository;
 import attendance.system.attendance.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Service
@@ -60,14 +59,8 @@ public class AttendanceService {
 
     // 当日の勤怠取得
     public Attendance getAttendance(Long userId) {
-        LocalDate today = LocalDate.now();
-
-        return attendanceRepository
-                .findByUserUserIdAndClockinTimeBetween(
-                        userId,
-                        today.atStartOfDay(),
-                        today.plusDays(1).atStartOfDay()
-                )
-                .orElseThrow(() -> new RuntimeException("本日の勤怠が存在しません"));
-    }
+    return attendanceRepository
+            .findByUserUserIdAndClockoutTimeIsNull(userId)
+            .orElseThrow(() -> new RuntimeException("出勤中の勤怠が存在しません"));
+        }
 }

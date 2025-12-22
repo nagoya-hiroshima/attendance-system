@@ -6,6 +6,7 @@ public class ClockInRequest {
 
     @NotNull
     private Long userId;
+    
 
     public ClockInRequest() {
     }
