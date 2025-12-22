@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ユーザ情報表示・編集</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/user_info.css}">
+</head>
+
+<body>
+<div class="main-frame">
+
+    <h2>ユーザ情報表示・編集</h2>
+
+    <form id="userForm">
+
+        <!-- 名前 -->
+        <div class="row" data-field="name">
+            <label>名前</label>
+            <input type="text" name="name" maxlength="20" disabled value="名古屋　広島">
+            <button type="button" class="edit-btn" data-target="name">編集</button>
+            <button type="button" class="save-btn-inline hidden" data-save="name">保存</button>
+        </div>
+
+        <!-- 所属部署 -->
+        <div class="row" data-field="deploy_place">
+            <label>所属部署</label>
+            <select name="deploy_place" disabled>
+                <option value="">選択してください</option>
+                <option value="総務部">総務部</option>
+                <option value="営業部">営業部</option>
+                <option value="開発部">開発部</option>
+                <option value="事務部">事務部</option>
+            </select>
+            <button type="button" class="edit-btn" data-target="deploy_place">編集</button>
+            <button type="button" class="save-btn-inline hidden" data-save="deploy_place">保存</button>
+        </div>
+
+        <!-- 勤務場所 -->
+        <div class="row" data-field="work_place">
+            <label>勤務場所</label>
+            <select name="work_place" disabled>
+                <option value="">選択してください</option>
+                <option value="リモート">リモート</option>
+                <option value="名古屋事務所">名古屋事務所</option>
+                <option value="仙台事務所">仙台事務所</option>
+                <option value="京都事務所">京都事務所</option>
+                <option value="大宮事務所">大宮事務所</option>
+            </select>
+            <button type="button" class="edit-btn" data-target="work_place">編集</button>
+            <button type="button" class="save-btn-inline hidden" data-save="work_place">保存</button>
+        </div>
+
+        <!-- メールアドレス -->
+        <div class="row" data-field="mail_address">
+            <label>メールアドレス</label>
+            <input type="text" name="mail_address" maxlength="100" disabled value="nagoya.hiroshima@123">
+            <button type="button" class="edit-btn" data-target="mail_address">編集</button>
+            <button type="button" class="save-btn-inline hidden" data-save="mail_address">保存</button>
+        </div>
+
+        <!-- 電話番号 -->
+        <div class="row" data-field="telephone_num">
+            <label>電話番号</label>
+            <input type="text" name="telephone_num" maxlength="15" disabled value="0123456789">
+            <button type="button" class="edit-btn" data-target="telephone_num">編集</button>
+            <button type="button" class="save-btn-inline hidden" data-save="telephone_num">保存</button>
+        </div>
+
+        <!-- 緊急連絡先 -->
+        <div class="row" data-field="emergency_num">
+            <label>緊急連絡先</label>
+            <input type="text" name="emergency_num" maxlength="15" disabled value="9876543210">
+            <button type="button" class="edit-btn" data-target="emergency_num">編集</button>
+            <button type="button" class="save-btn-inline hidden" data-save="emergency_num">保存</button>
+        </div>
+
+        <!-- 戻る -->
+        <div class="back-area">
+            <button type="button" class="back-btn" onclick="goBack()">戻る</button>
+        </div>
+
+    </form>
+</div>
+
+<script src="/js/user_info.js"></script>
+
+</body>
+</html>
