@@ -1,5 +1,9 @@
 package attendance.system.attendance.repository;
 
-public class DeployRepository {
-    
+import attendance.system.attendance.model.Deploy;
+
+public interface DeployRepository {
+
+    Deploy findById(Integer deployId);
+
 }
