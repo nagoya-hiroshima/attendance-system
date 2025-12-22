@@ -3,7 +3,7 @@ package attendance.system.attendance.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "t_busho")
+@Table(name = "T_BUSHO")
 public class Deploy {
 
     @Id

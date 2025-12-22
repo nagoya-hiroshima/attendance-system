@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "t_kintai")
+@Table(name = "T_KINTAI")
 public class Attendance {
 
     @Id
@@ -35,4 +35,9 @@ public class Attendance {
 
     public LocalDateTime getClockoutTime() { return clockoutTime; }
     public void setClockoutTime(LocalDateTime clockoutTime) { this.clockoutTime = clockoutTime; }
+
+    public void setWorkPlace(String workPlace) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setWorkPlace'");
+    }
 }

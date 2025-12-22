@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "t_user")
+@Table(name = "T_USER")
 public class User {
 
     @Id
@@ -84,4 +84,3 @@ public class User {
     public LocalDateTime getUpdateTime() { return updateTime; }
     public void setUpdateTime(LocalDateTime updateTime) { this.updateTime = updateTime; }
 }
-
