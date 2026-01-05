@@ -13,10 +13,8 @@ editButtons.forEach(btn => {
 
         // 対象フィールド編集可
         field.disabled = false;
-
         // 他編集ボタンは無効化
         editButtons.forEach(b => b.disabled = true);
-
         // 保存ボタン表示
         saveBtn.classList.remove("hidden");
 
@@ -30,22 +28,47 @@ editButtons.forEach(btn => {
 saveButtons.forEach(saveBtn => {
     saveBtn.addEventListener("click", () => {
 
-        const target = saveBtn.dataset.save;
-        const field = document.querySelector(`[name='${target}']`);
+        const form = document.getElementById("userForm");
 
-        // 再度無効化
-        field.disabled = true;
+        const body = {
+            name: form.name.value,
+            deployId: form.deployId.value || null,
+            workPlace: form.workPlace.value || null,
+            mailAddress: form.mailAddress.value,
+            telephoneNum: form.telephoneNum.value,
+            emergencyNum: form.emergencyNum.value
+        };
 
-        // 保存ボタン非表示
-        saveBtn.classList.add("hidden");
+        fetch("/api/user/update", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(body)
+        })
+        .then(async res => {
+            const message = await res.text();
 
-        // 編集ボタン再度有効化
-        editButtons.forEach(b => b.disabled = false);
+            if (!res.ok) {
+                throw new Error(message);
+            }
 
-        window.isEditing = false;
-        window.currentEditingTarget = null;
+            // UI戻す
+            const target = saveBtn.dataset.save;
+            const field = document.querySelector(`[name='${target}']`);
 
-        alert("保存しました");
+            field.disabled = true;
+            saveBtn.classList.add("hidden");
+            editButtons.forEach(b => b.disabled = false);
+
+            window.isEditing = false;
+            window.currentEditingTarget = null;
+
+            alert(message);
+        })
+        .catch(err => {
+            alert(err.message);
+        });
     });
 });
 

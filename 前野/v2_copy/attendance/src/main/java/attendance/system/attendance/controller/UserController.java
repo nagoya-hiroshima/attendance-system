@@ -1,49 +1,109 @@
 package attendance.system.attendance.controller;
 
+import attendance.system.attendance.dto.RegisterUserRequest;
+import attendance.system.attendance.dto.UpdateUserRequest;
+import attendance.system.attendance.message.MessageCode;
+import attendance.system.attendance.model.User;
+import attendance.system.attendance.service.UserService;
+import jakarta.servlet.http.HttpSession;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class UserController {
 
+    private final UserService userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+
     // 既存：ユーザ情報表示画面
     @GetMapping("/api/user/auth")
-    public String showUserInfoPage() {
+    public String showUserInfoPage(HttpSession session, Model model) {
+
+        User loginUser = (User) session.getAttribute("loginUser");
+        if (loginUser == null) {
+        return "redirect:/api/login/auth";
+        }
+
+        User user = userService.getUser(loginUser.getUserId());
+        model.addAttribute("user", user);
+
         return "user_info";
     }
 
-    // 追加：ユーザ情報【登録】画面
+    // ユーザ情報【登録】画面表示
     @GetMapping("/api/register/auth")
-    public String showUserRegisterPage() {
-        return "user_register"; // ← user_register.html を返す
+    public String showUserRegisterPage(HttpSession session) {
+
+        User loginUser = (User) session.getAttribute("loginUser");
+        if (loginUser == null) {
+            return "redirect:/api/login/auth";
+        }
+        // すでに登録済みなら戻す
+        if (!userService.isFirstRegister(loginUser)) {
+            return "redirect:/api/attendance/auth";
+        }
+
+        return "user_register";
     }
 
-    // 追加：ユーザ登録処理（今回は DB 保存なし）
+    // ユーザ情報【登録】処理
     @PostMapping("/api/register/auth")
     public String registerUser(
-        @RequestParam("name") String name,
-        @RequestParam("deploy_place") String deployPlace,
-        @RequestParam("mail_address") String mail,
-        @RequestParam("telephone_num") String tel,
-        @RequestParam("emergency_num") String emergency,
-        RedirectAttributes redirectAttributes
+            RegisterUserRequest req,
+            HttpSession session
     ) {
+        User loginUser = (User) session.getAttribute("loginUser");
+        if (loginUser == null) {
+            return "redirect:/api/login/auth";
+        }
 
-        // ▼本来はサービス → DB 保存だが今回はスキップ
-        System.out.println("【登録情報】");
-        System.out.println("名前: " + name);
-        System.out.println("部署: " + deployPlace);
-        System.out.println("メール: " + mail);
-        System.out.println("電話番号: " + tel);
-        System.out.println("緊急連絡先: " + emergency);
+        User updatedUser = userService.registerUser(loginUser, req);
 
-        // 完了メッセージをセット
-        redirectAttributes.addFlashAttribute("message", "ユーザ情報を登録しました！");
+        // セッション更新
+        session.setAttribute("loginUser", updatedUser);
 
-        // 登録後は勤怠画面へ
         return "redirect:/api/attendance/auth";
+    }
+
+    // ユーザ情報【更新】処理
+    @PostMapping("/api/user/update")
+    @ResponseBody
+    public ResponseEntity<String> updateUser(@RequestBody UpdateUserRequest req,
+                                             HttpSession session) {
+
+        User loginUser = (User) session.getAttribute("loginUser");
+        if (loginUser == null) {
+            return ResponseEntity
+                    .status(HttpStatus.UNAUTHORIZED)
+                    .body(MessageCode.M0002.getMessage());
+        }
+        try {
+            userService.updateUser(loginUser.getUserId(), req);
+
+            // セッション更新
+            session.setAttribute(
+                    "loginUser",
+                    userService.getUser(loginUser.getUserId())
+            );
+
+            return ResponseEntity.ok(
+                    MessageCode.M0014.getMessage()
+            );
+
+        } catch (RuntimeException e) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(e.getMessage());
+        }
     }
 }

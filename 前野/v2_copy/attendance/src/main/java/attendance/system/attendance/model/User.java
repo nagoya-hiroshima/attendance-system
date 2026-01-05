@@ -34,17 +34,17 @@ public class User {
     @Column(name = "emergency_num")
     private String emergencyNum;
 
-    @Column(name = "insert_time", updatable = false)
+    @Column(name = "insert_time")
     private LocalDateTime insertTime;
 
     @Column(name = "update_time")
     private LocalDateTime updateTime;
 
-    @PrePersist
+    /*@PrePersist
     public void onCreate() {
         this.insertTime = LocalDateTime.now();
         this.updateTime = LocalDateTime.now();
-    }
+    }*/
 
     @PreUpdate
     public void onUpdate() {

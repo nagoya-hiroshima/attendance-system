@@ -22,6 +22,9 @@ public class Attendance {
     @Column(name = "clockout_time")
     private LocalDateTime clockoutTime;
 
+    @Column(name = "work_place")
+    private String workPlace;
+
     public Attendance() {}
 
     public Long getAttendanceId() { return attendanceId; }
@@ -35,4 +38,7 @@ public class Attendance {
 
     public LocalDateTime getClockoutTime() { return clockoutTime; }
     public void setClockoutTime(LocalDateTime clockoutTime) { this.clockoutTime = clockoutTime; }
+
+    public String getWorkPlace() {return workPlace;}
+    public void setWorkPlace(String workPlace) {this.workPlace = workPlace;}
 }

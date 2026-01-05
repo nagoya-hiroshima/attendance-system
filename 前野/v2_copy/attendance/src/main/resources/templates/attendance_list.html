@@ -61,30 +61,19 @@
         </thead>
 
         <tbody>
-        <!-- 出勤中 -->
-        <tr class="working">
-            <td>名古屋 広島</td>
-            <td class="col-work hidden">リモート</td>
-            <td class="col-mail hidden">nagoya.hiroshima@123</td>
-            <td class="col-tel hidden">123456789</td>
-            <td class="col-emergency hidden">9876543210</td>
-        </tr>
+        <tr th:each="u : ${users}"
+            th:with="att=${@attendanceService.getAttendance(u.userId)}"
+            th:classappend="${att != null} ? 'working' : ''">
 
-        <tr>
-            <td>仙台 福岡</td>
-            <td class="col-work hidden">仙台事務所</td>
-            <td class="col-mail hidden">sendai.fukuoka@456</td>
-            <td class="col-tel hidden">111222333</td>
-            <td class="col-emergency hidden">4444555666</td>
-        </tr>
+            <td th:text="${u.name}"></td>
 
-        <!-- 出勤中 -->
-        <tr class="working">
-            <td>京都 大阪</td>
-            <td class="col-work hidden">リモート</td>
-            <td class="col-mail hidden">kyo.osaka@001</td>
-            <td class="col-tel hidden">105106107</td>
-            <td class="col-emergency hidden">108109110</td>
+            <td class="col-work hidden"
+                th:text="${att != null ? att.workPlace : ''}">
+            </td>
+
+            <td class="col-mail hidden" th:text="${u.mailAddress}"></td>
+            <td class="col-tel hidden" th:text="${u.telephoneNum}"></td>
+            <td class="col-emergency hidden" th:text="${u.emergencyNum}"></td>
         </tr>
         </tbody>
     </table>

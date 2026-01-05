@@ -19,15 +19,15 @@ public class SessionController {
         this.userService = userService;
     }
 
-    /*ログイン画面表示*/
+    // ログイン画面表示
     @GetMapping("/auth")
     public String showLoginPage() {
         return "index";
     }
 
-    /*ログイン処理*/
+    // ログイン処理
     @PostMapping("/auth")
-    public String login(@RequestParam("user_id") Long userId,
+    public String login(@RequestParam("user_id") String userId,
                         @RequestParam("password") String password,
                         HttpSession session) {
 
@@ -39,7 +39,12 @@ public class SessionController {
             session.removeAttribute("loginError");
             session.setAttribute("loginUser", user);
 
-            // 勤怠画面へ
+            // 初回登録なら登録画面へ
+            if (userService.isFirstRegister(user)) {
+                return "redirect:/api/register/auth";
+            }
+
+            // 2回目ログイン以降は勤怠画面へ
             return "redirect:/api/attendance/auth";
 
         } catch (RuntimeException e) {
@@ -49,7 +54,7 @@ public class SessionController {
         }
     }
 
-    /*ログアウト処理*/
+    // ログアウト処理
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();

@@ -35,6 +35,11 @@
             <div class="time-text" id="current-time"></div>
         </div>
 
+        <!-- エラーメッセージ表示 -->
+        <!-- <div class="error-message" th:if="${session.loginError}">
+            <span th:text="${session.loginError}"></span>
+        </div> -->
+
         <!-- 勤務場所 -->
         <div class="workplace-area">
             <label for="work_place">勤務場所</label>
@@ -63,6 +68,12 @@
     </div>
 
 </div>
+<script th:inline="javascript">
+    const IS_CLOCKED_IN = /*[[${isClockedIn}]]*/ false;
+    const MESSAGE_IN  = /*[[${M0010}]]*/ "出勤しました";
+    const MESSAGE_OUT = /*[[${M0012}]]*/ "退勤しました";
+    const LOGOUT_CONFIRM_MESSAGE = /*[[${M0013}]]*/ "ログアウトしますか？";
+</script>
 <script src="/js/attendance.js"></script>
 </body>
 </html>

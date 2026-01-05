@@ -4,15 +4,15 @@ document.addEventListener("DOMContentLoaded", () => {
     const params = new URLSearchParams(window.location.search);
     const msg = params.get("msg");
 
-    let isClockedIn = false;
+    let isClockedIn = IS_CLOCKED_IN;
 
     if (msg === "IN") {
-        alert("出勤しました");
-        isClockedIn = true;   // ★ ここが超重要
+        alert(MESSAGE_IN);
+        isClockedIn = true;
     }
 
     if (msg === "OUT") {
-        alert("退勤しました");
+        alert(MESSAGE_OUT);
         isClockedIn = false;
     }
 
@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 /* ===== ログアウト ===== */
 function logoutConfirm() {
-    if (confirm("ログアウトしますか？")) {
+    if (confirm(LOGOUT_CONFIRM_MESSAGE)) {
         location.href = "/api/login/logout";
     }
 }

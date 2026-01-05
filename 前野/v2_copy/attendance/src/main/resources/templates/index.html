@@ -13,8 +13,9 @@
 
     <form th:action="@{/api/login/auth}" method="post" class="login-form">
 
-        <div th:if="${session.loginError}" class="error-message">
-            <p th:text="${session.loginError}"></p>
+        <!-- エラーメッセージ表示 -->
+        <div class="error-message" th:if="${session.loginError}">
+            <span th:text="${session.loginError}"></span>
         </div>
         
         <!-- ユーザID -->
@@ -24,8 +25,6 @@
                 id="user_id"
                 name="user_id"
                 inputmode="numeric"
-                pattern="[0-9]*"
-                required
                 placeholder="ユーザIDを入力">
             <div class="eye-placeholder"></div> <!-- 👁 と同じ幅の空白 -->
         </div>
@@ -37,7 +36,6 @@
                 id="password"
                 name="password"
                 maxlength="32"
-                required
                 placeholder="パスワードを入力">
 
             <button type="button"
