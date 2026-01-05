@@ -1,4 +1,4 @@
-package attendance.system.attendance.test;
+package attendance.system.attendance.test.RepositoryTest;
 
 import attendance.system.attendance.model.User;
 import attendance.system.attendance.model.Deploy;

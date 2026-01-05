@@ -1,4 +1,4 @@
-package attendance.system.attendance.test;
+package attendance.system.attendance.test.RepositoryTest;
 
 
 import org.springframework.boot.test.context.SpringBootTest;
