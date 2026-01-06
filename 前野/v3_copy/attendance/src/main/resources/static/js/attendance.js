@@ -6,14 +6,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let isClockedIn = IS_CLOCKED_IN;
 
+    //出勤
     if (msg === "IN") {
         alert(MESSAGE_IN);
         isClockedIn = true;
     }
-
+    //退勤
     if (msg === "OUT") {
         alert(MESSAGE_OUT);
         isClockedIn = false;
+    }
+    //保存
+    if (msg === "M0006") {
+        alert(SAVE);
     }
 
     /* ===== 要素取得 ===== */

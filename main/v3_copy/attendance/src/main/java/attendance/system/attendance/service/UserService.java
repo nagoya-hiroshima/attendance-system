@@ -81,6 +81,18 @@ public class UserService {
         if (!req.getMailAddress().matches("^[^@]+@[^@]+\\.[^@]+$")) {
             throw new RuntimeException(MessageCode.M0008.getMessage());
         }
+        // 電話番号チェック（半角数字のみ）
+        if (req.getTelephoneNum() != null && !req.getTelephoneNum().isBlank()) {
+            if (!req.getTelephoneNum().matches("^\\d+$")) {
+                throw new RuntimeException(MessageCode.M0007.getMessage());
+            }
+        }
+        // 緊急連絡先チェック（半角数字のみ）
+        if (req.getEmergencyNum() != null && !req.getEmergencyNum().isBlank()) {
+            if (!req.getEmergencyNum().matches("^\\d+$")) {
+                throw new RuntimeException(MessageCode.M0007.getMessage());
+            }
+        }
 
         user.setName(req.getName());
 
@@ -120,19 +132,31 @@ public class UserService {
             throw new RuntimeException(MessageCode.M0009.getMessage());
         }
         user.setName(req.getName());
+
         // 部署（変更があったときだけ）
         if (req.getDeployId() != null) {
             Deploy deploy = deployRepository.findById(req.getDeployId())
                 .orElseThrow(() -> new RuntimeException("部署が存在しません"));
             user.setDeploy(deploy);
         }
-
         // メール（入力があるときだけ）
         if (req.getMailAddress() != null && !req.getMailAddress().isBlank()) {
             if (!req.getMailAddress().matches("^[^@]+@[^@]+\\.[^@]+$")) {
                 throw new RuntimeException(MessageCode.M0016.getMessage());
             }
             user.setMailAddress(req.getMailAddress());
+        }
+        // 電話番号チェック(半角数字のみ)
+        if (req.getTelephoneNum() != null && !req.getTelephoneNum().isEmpty()) {
+            if (!req.getTelephoneNum().matches("^\\d+$")) {
+                throw new RuntimeException(MessageCode.M0015.getMessage());
+            }
+        }
+        // 緊急連絡先チェック(半角数字のみ)
+        if (req.getEmergencyNum() != null && !req.getEmergencyNum().isEmpty()) {
+            if (!req.getEmergencyNum().matches("^\\d+$")) {
+                throw new RuntimeException(MessageCode.M0015.getMessage());
+            }
         }
 
         user.setWorkPlace(req.getWorkPlace());

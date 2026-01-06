@@ -13,10 +13,6 @@
     <h2>ユーザ情報登録</h2>
 
     <form th:action="@{/api/register/auth}" method="post">
-        <!-- エラーメッセージ表示 -->
-        <!--<div class="error-message" th:if="${error}">
-            <span th:text="${error}"></span>
-        </div>-->
 
         <!-- 名前 -->
         <div class="row">
@@ -61,6 +57,11 @@
 
     </form>
 </div>
-
+<script th:inline="javascript">
+    const ERROR_M0007 = /*[[${M0007}]]*/ "";
+    const ERROR_M0008 = /*[[${M0008}]]*/ "";
+    const ERROR_M0009 = /*[[${M0009}]]*/ "";
+</script>
+<script src="/js/user_register.js"></script>
 </body>
 </html>
