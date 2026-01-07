@@ -1,10 +1,10 @@
 package attendance.system.attendance.repository;
 
 import attendance.system.attendance.model.Deploy;
-import java.util.Optional;
 
-public interface DeployRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-    Optional<Deploy> findById(Integer deployId);
-
+@Repository
+public interface DeployRepository extends JpaRepository<Deploy, Integer> {
 }
