@@ -33,7 +33,6 @@
         <div class="row" data-field="deployId">
             <label>所属部署</label>
             <select name="deployId" disabled>
-                <option value="">選択してください</option>
                 <option value="1" th:selected="${user.deploy.deployId == 1}">総務部</option>
                 <option value="2" th:selected="${user.deploy.deployId == 2}">営業部</option>
                 <option value="3" th:selected="${user.deploy.deployId == 3}">開発部</option>
@@ -47,7 +46,6 @@
         <div class="row" data-field="workPlace">
             <label>勤務場所</label>
             <select name="workPlace" disabled>
-                <option value="">選択してください</option>
                 <option value="office" th:selected="${user.workPlace == 'office'}">オフィス</option>
                 <option value="remote" th:selected="${user.workPlace == 'remote'}">リモート</option>
                 <option value="business" th:selected="${user.workPlace == 'business'}">出張</option>
