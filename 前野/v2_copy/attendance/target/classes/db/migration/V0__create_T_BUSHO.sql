@@ -1,0 +1,4 @@
+CREATE TABLE T_BUSHO (
+    deploy_id   INTEGER PRIMARY KEY,
+    deploy_name VARCHAR(20) NOT NULL
+);
