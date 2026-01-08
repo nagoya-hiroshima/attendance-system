@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ユーザ情報表示・編集</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/user_info.css}">
+</head>
+
+<body>
+<div class="main-frame">
+
+    <h2>ユーザ情報表示・編集</h2>
+
+    <form id="userForm">
+
+        <!-- 名前 -->
+        <div class="row" data-field="name">
+            <label>名前</label>
+            <input type="text" name="name" th:value="${user.name}" disabled>
+            <button type="button" class="edit-btn" data-target="name">編集</button>
+            <button type="button" class="save-btn-inline hidden" data-save="name">保存</button>
+        </div>
+
+        <!-- 所属部署 -->
+        <div class="row" data-field="deployId">
+            <label>所属部署</label>
+            <select name="deployId" disabled>
+                <option value="1" th:selected="${user.deploy.deployId == 1}">総務部</option>
+                <option value="2" th:selected="${user.deploy.deployId == 2}">営業部</option>
+                <option value="3" th:selected="${user.deploy.deployId == 3}">開発部</option>
+                <option value="4" th:selected="${user.deploy.deployId == 4}">事務部</option>
+            </select>
+            <button type="button" class="edit-btn" data-target="deployId">編集</button>
+            <button type="button" class="save-btn-inline hidden" data-save="deployId">保存</button>
+        </div>
+
+        <!-- 勤務場所 -->
+        <div class="row" data-field="workPlace">
+            <label>勤務場所</label>
+            <select name="workPlace" disabled>
+                <option value="office" th:selected="${user.workPlace == 'office'}">オフィス</option>
+                <option value="remote" th:selected="${user.workPlace == 'remote'}">リモート</option>
+                <option value="business" th:selected="${user.workPlace == 'business'}">出張</option>
+            </select>
+            <button type="button" class="edit-btn" data-target="workPlace">編集</button>
+            <button type="button" class="save-btn-inline hidden" data-save="workPlace">保存</button>
+        </div>
+
+        <!-- メールアドレス -->
+        <div class="row" data-field="mailAddress">
+            <label>メールアドレス</label>
+            <input type="text" name="mailAddress" maxlength="100" th:value="${user.mailAddress}" disabled value="nagoya.hiroshima@123">
+            <button type="button" class="edit-btn" data-target="mailAddress">編集</button>
+            <button type="button" class="save-btn-inline hidden" data-save="mailAddress">保存</button>
+        </div>
+
+        <!-- 電話番号 -->
+        <div class="row" data-field="telephoneNum">
+            <label>電話番号</label>
+            <input type="text" name="telephoneNum" maxlength="15" th:value="${user.telephoneNum}"disabled value="0123456789">
+            <button type="button" class="edit-btn" data-target="telephoneNum">編集</button>
+            <button type="button" class="save-btn-inline hidden" data-save="telephoneNum">保存</button>
+        </div>
+
+        <!-- 緊急連絡先 -->
+        <div class="row" data-field="emergencyNum">
+            <label>緊急連絡先</label>
+            <input type="text" name="emergencyNum" maxlength="15" th:value="${user.emergencyNum}" disabled value="9876543210">
+            <button type="button" class="edit-btn" data-target="emergencyNum">編集</button>
+            <button type="button" class="save-btn-inline hidden" data-save="emergencyNum">保存</button>
+        </div>
+
+        <!-- 戻る -->
+        <div class="back-area">
+            <button type="button" class="back-btn" onclick="goBack()">戻る</button>
+        </div>
+
+    </form>
+</div>
+<script src="/js/user_info.js"></script>
+</body>
+</html>
