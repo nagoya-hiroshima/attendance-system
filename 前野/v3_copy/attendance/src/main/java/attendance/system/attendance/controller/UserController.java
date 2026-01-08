@@ -42,7 +42,7 @@ public class UserController {
 
     // ユーザ情報【登録】画面表示
     @GetMapping("/api/register/auth")
-    public String showUserRegisterPage(HttpSession session) {
+    public String showUserRegisterPage(HttpSession session, Model model) {
 
         User loginUser = (User) session.getAttribute("loginUser");
         if (loginUser == null) {
@@ -53,26 +53,44 @@ public class UserController {
             return "redirect:/api/attendance/auth";
         }
 
+        // エラーメッセージ用
+        model.addAttribute("M0007", MessageCode.M0007.getMessage());
+        model.addAttribute("M0008", MessageCode.M0008.getMessage());
+        model.addAttribute("M0009", MessageCode.M0009.getMessage());
+
         return "user_register";
     }
 
     // ユーザ情報【登録】処理
     @PostMapping("/api/register/auth")
-    public String registerUser(
-            RegisterUserRequest req,
-            HttpSession session
-    ) {
+    public String registerUser(RegisterUserRequest req, HttpSession session) {
         User loginUser = (User) session.getAttribute("loginUser");
         if (loginUser == null) {
             return "redirect:/api/login/auth";
         }
 
-        User updatedUser = userService.registerUser(loginUser, req);
+        try{
+            User updatedUser = userService.registerUser(loginUser, req);
 
-        // セッション更新
-        session.setAttribute("loginUser", updatedUser);
+            // セッション更新
+            session.setAttribute("loginUser", updatedUser);
+            // 登録成功（M0006）
+            return "redirect:/api/attendance/auth?msg=M0006";
 
-        return "redirect:/api/attendance/auth";
+        }catch (RuntimeException e) {
+            // 登録失敗（M0007 / M0008 / M0009）
+            if (e.getMessage().equals(MessageCode.M0009.getMessage())) {
+                return "redirect:/api/register/auth?error=M0009";
+            }
+            if (e.getMessage().equals(MessageCode.M0007.getMessage())) {
+                return "redirect:/api/register/auth?error=M0007";
+            }
+            if (e.getMessage().equals(MessageCode.M0008.getMessage())) {
+                return "redirect:/api/register/auth?error=M0008";
+            }
+            // 想定外
+            return "redirect:/api/register/auth?error=UNKNOWN";
+        }
     }
 
     // ユーザ情報【更新】処理

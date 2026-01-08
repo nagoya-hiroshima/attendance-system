@@ -13,7 +13,7 @@ public class Attendance {
     private Long attendanceId;
 
     @ManyToOne
-    @JoinColumn(name = "user_id") // 外部キーと完全一致
+    @JoinColumn(name = "user_id")
     private User user;
 
     @Column(name = "clockin_time")

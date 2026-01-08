@@ -3,8 +3,10 @@ package attendance.system.attendance.service;
 import attendance.system.attendance.dto.RegisterUserRequest;
 import attendance.system.attendance.dto.UpdateUserRequest;
 import attendance.system.attendance.message.MessageCode;
+import attendance.system.attendance.model.Attendance;
 import attendance.system.attendance.model.Deploy;
 import attendance.system.attendance.model.User;
+import attendance.system.attendance.repository.AttendanceRepository;
 import attendance.system.attendance.repository.DeployRepository;
 import attendance.system.attendance.repository.UserRepository;
 import jakarta.transaction.Transactional;
@@ -19,11 +21,15 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final DeployRepository deployRepository;
+    private final AttendanceRepository attendanceRepository;
+
 
     public UserService(UserRepository userRepository,
-                       DeployRepository deployRepository) {
+                       DeployRepository deployRepository,
+                       AttendanceRepository attendanceRepository) {
         this.userRepository = userRepository;
         this.deployRepository = deployRepository;
+        this.attendanceRepository = attendanceRepository;
     }
 
     // ログイン処理
@@ -81,6 +87,18 @@ public class UserService {
         if (!req.getMailAddress().matches("^[^@]+@[^@]+\\.[^@]+$")) {
             throw new RuntimeException(MessageCode.M0008.getMessage());
         }
+        // 電話番号チェック（半角数字のみ）
+        if (req.getTelephoneNum() != null && !req.getTelephoneNum().isBlank()) {
+            if (!req.getTelephoneNum().matches("^\\d+$")) {
+                throw new RuntimeException(MessageCode.M0007.getMessage());
+            }
+        }
+        // 緊急連絡先チェック（半角数字のみ）
+        if (req.getEmergencyNum() != null && !req.getEmergencyNum().isBlank()) {
+            if (!req.getEmergencyNum().matches("^\\d+$")) {
+                throw new RuntimeException(MessageCode.M0007.getMessage());
+            }
+        }
 
         user.setName(req.getName());
 
@@ -120,13 +138,13 @@ public class UserService {
             throw new RuntimeException(MessageCode.M0009.getMessage());
         }
         user.setName(req.getName());
+
         // 部署（変更があったときだけ）
         if (req.getDeployId() != null) {
             Deploy deploy = deployRepository.findById(req.getDeployId())
                 .orElseThrow(() -> new RuntimeException("部署が存在しません"));
             user.setDeploy(deploy);
         }
-
         // メール（入力があるときだけ）
         if (req.getMailAddress() != null && !req.getMailAddress().isBlank()) {
             if (!req.getMailAddress().matches("^[^@]+@[^@]+\\.[^@]+$")) {
@@ -134,10 +152,27 @@ public class UserService {
             }
             user.setMailAddress(req.getMailAddress());
         }
-
-        user.setWorkPlace(req.getWorkPlace());
-        user.setTelephoneNum(req.getTelephoneNum());
-        user.setEmergencyNum(req.getEmergencyNum());
+        // 電話番号チェック(半角数字のみ)
+        if (req.getTelephoneNum() != null && !req.getTelephoneNum().isEmpty()) {
+            if (!req.getTelephoneNum().matches("^\\d+$")) {
+                throw new RuntimeException(MessageCode.M0015.getMessage());
+            }
+            user.setTelephoneNum(req.getTelephoneNum());
+        }
+        // 緊急連絡先チェック(半角数字のみ)
+        if (req.getEmergencyNum() != null && !req.getEmergencyNum().isEmpty()) {
+            if (!req.getEmergencyNum().matches("^\\d+$")) {
+                throw new RuntimeException(MessageCode.M0015.getMessage());
+            }
+            user.setEmergencyNum(req.getEmergencyNum());
+        }
+        // 勤務場所（入力があるときだけ）
+        if (req.getWorkPlace() != null && !req.getWorkPlace().isBlank()) {
+            Attendance attendance = attendanceRepository
+                .findByUserUserIdAndClockoutTimeIsNull(userId)
+                .orElseThrow(() -> new RuntimeException("出勤中の勤怠情報が存在しません"));
+            attendance.setWorkPlace(req.getWorkPlace());
+        }
 
         return userRepository.save(user);
     }
