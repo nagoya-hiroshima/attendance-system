@@ -56,7 +56,7 @@ public class UserController {
         model.addAttribute("M0007", MessageCode.M0007.getMessage());
         model.addAttribute("M0008", MessageCode.M0008.getMessage());
         model.addAttribute("M0009", MessageCode.M0009.getMessage());
-
+        
         return "user_register";
     }
 
