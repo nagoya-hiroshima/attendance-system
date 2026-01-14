@@ -41,6 +41,8 @@ public class AttendanceController {
         model.addAttribute("M0012", MessageCode.M0012.getMessage());
         // ログアウトメッセージ
         model.addAttribute("M0013", MessageCode.M0013.getMessage());
+        // 保存メッセージ
+        model.addAttribute("M0006", MessageCode.M0006.getMessage());
         
         return "attendance";
     }
