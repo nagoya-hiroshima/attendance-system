@@ -1,0 +1,118 @@
+/* --- ヘッダー --- */
+.header {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 20px;
+    align-items: center;
+}
+
+.user-info span {
+    font-size: 20px;
+    margin-right: 15px;
+}
+
+/* 右上のメニューボタン */
+.menu button {
+    font-size: 16px;
+    padding: 10px 20px;
+    margin-left: 10px;
+    background-color: #ffffff;
+    border: 2px solid #a6b9d6;
+    color: #333;
+    border-radius: 12px;  /* ←角丸 */
+    box-shadow: 0 3px 6px rgba(0,0,0,0.15); /* ←影 */
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+/* ホバー時のふわっと動き */
+.menu button:hover {
+    background-color: #f0f6ff;
+    border-color: #8aa7cf;
+    transform: translateY(-3px); /* ← 浮く */
+    box-shadow: 0 6px 10px rgba(0,0,0,0.2);
+}
+
+/* --- 真ん中エリア --- */
+.center-area {
+    text-align: center;
+    padding-top: 10px;
+}
+
+/* 日付・時刻 */
+.date-text {
+    font-size: 40px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.time-text {
+    font-size: 50px;
+    font-weight: bold;
+    margin: 10px 0 30px 0;
+}
+
+/* 勤務場所 */
+.workplace-area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.workplace-area label {
+    font-size: 20px;
+    margin-right: 15px;
+}
+
+.workplace-area select {
+    width: 200px;
+    height: 35px;
+    font-size: 18px;
+    border-radius: 8px;
+    border: 1px solid #99b1d8;
+}
+
+.notice {
+    color: red;
+    font-size: 15px;
+    margin-bottom: 40px;
+}
+
+/* 出勤・退勤ボタン */
+.button-area {
+    display: flex;
+    justify-content: center;
+    gap: 100px;
+    margin-top: 20px;
+}
+
+.btn {
+    width: 200px;
+    height: 100px;
+    border-radius: 25px; /* ← 大きめの角丸OK */
+    font-size: 28px;
+    color: white;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.clockin {
+    background-color: #00b300;
+}
+
+.clockout {
+    background-color: #0066ff;
+}
+
+.clockin:hover {
+    background-color: #009900;
+    transform: scale(1.03);
+}
+
+.clockout:hover {
+    background-color: #004ccc;
+    transform: scale(1.03);
+}

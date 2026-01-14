@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>勤怠入力</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/attendance.css}">
+</head>
+<body>
+
+<div class="main-frame">
+
+    <!-- ヘッダー（ユーザ情報 + メニュー） -->
+    <div class="header">
+
+        <!-- ユーザ情報 ここはログインされたIDと名前表示に書き換える-->
+        <div class="user-info">
+            <span th:text="${user.userId}"></span>
+            <span th:text="${user.name}"></span>
+        </div>
+
+        <div class="menu">
+            <button onclick="location.href='/api/list/auth'">勤怠状況一覧</button>
+            <button onclick="location.href='/api/user/auth'">ユーザ情報表示・編集</button>
+            <button onclick="logoutConfirm()">ログアウト</button>
+        </div>
+    </div>
+
+    <!-- 中央の打刻エリア -->
+    <div class="center-area">
+
+        <!-- 日付と時刻 -->
+        <div class="datetime">
+            <div class="date-text" id="today-date"></div>
+            <div class="time-text" id="current-time"></div>
+        </div>
+
+        <!-- 勤務場所 -->
+        <div class="workplace-area">
+            <label for="work_place">勤務場所</label>
+            <select id="work_place" name="work_place">
+                <option value="">選択してください</option>
+                <option value="office">オフィス</option>
+                <option value="remote">リモート</option>
+                <option value="business">出張</option>
+            </select>
+        </div>
+
+        <p class="notice">※勤務場所を選択してから「出勤」を押してください</p>
+
+        <!-- ボタン2つ -->
+        <div class="button-area">
+            <form th:action="@{/clock/in}" method="post">
+                <input type="hidden" name="work_place" id="work_place_in">
+                <button class="btn clockin">出勤</button>
+            </form>
+
+            <form th:action="@{/clock/out}" method="post">
+                <button class="btn clockout">退勤</button>
+            </form>
+        </div>
+
+    </div>
+
+</div>
+<script th:inline="javascript">
+    const IS_CLOCKED_IN = /*[[${isClockedIn}]]*/ false;
+    const MESSAGE_IN  = /*[[${M0010}]]*/ "";
+    const MESSAGE_OUT = /*[[${M0012}]]*/ "";
+    const LOGOUT_CONFIRM_MESSAGE = /*[[${M0013}]]*/ "";
+    const SAVE = /*[[${M0006}]]*/ "";
+</script>
+<script src="/js/attendance.js"></script>
+</body>
+</html>
+
