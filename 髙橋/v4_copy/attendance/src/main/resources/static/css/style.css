@@ -1,0 +1,80 @@
+/* ===== 全画面共通 ===== */
+body {
+    background-color: #dceafc;
+    margin: 0;
+    font-family: sans-serif;
+}
+
+/* ===== メイン枠 ===== */
+.main-frame {
+    width: 95%;
+    margin: 20px auto;
+    background-color: #e5f0ff;
+    border: 2px solid #b8cbe4;
+    border-radius: 12px;
+    padding: 20px;
+}
+
+/* ===== タイトル ===== */
+h2 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* ===== ラベル ===== */
+label {
+    font-size: 18px;
+}
+
+/* ===== 入力系 ===== */
+input,
+select {
+    padding: 8px 10px;
+    font-size: 16px;
+    border-radius: 6px;
+    border: 1px solid #888;
+    background-color: #ffffff;
+}
+
+/* ===== ボタン共通（青系） ===== */
+.btn-primary {
+    padding: 8px 25px;
+    background-color: #0077ff;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+    background-color: #005fd1;
+}
+
+/* ===== 戻るボタン（ふわっと） ===== */
+.back-area {
+    margin-top: 25px;
+    text-align: right;
+}
+
+.back-btn {
+    padding: 8px 25px;
+    font-size: 16px;
+    background-color: #ffffff;
+    border: 2px solid #a6b9d6;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.back-btn:hover {
+    background-color: #f0f6ff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+/* ===== 非表示 ===== */
+.hidden {
+    display: none;
+}

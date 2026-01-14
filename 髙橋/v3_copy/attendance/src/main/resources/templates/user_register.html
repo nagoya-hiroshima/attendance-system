@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ユーザ情報登録</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/user_register.css}">
+</head>
+
+<body>
+<div class="main-frame">
+
+    <h2>ユーザ情報登録</h2>
+
+    <form th:action="@{/api/register/auth}" method="post">
+        <!-- エラーメッセージ表示 -->
+        <!--<div class="error-message" th:if="${error}">
+            <span th:text="${error}"></span>
+        </div>-->
+
+        <!-- 名前 -->
+        <div class="row">
+            <label>名前</label>
+            <input type="text" name="name" maxlength="20" required placeholder="例） 名古屋　広島">
+        </div>
+
+        <!-- 所属部署 -->
+        <div class="row">
+            <label>所属部署</label>
+            <select name="deployId" required>
+                <option value="">選択してください</option>
+                <option value="1">総務部</option>
+                <option value="2">営業部</option>
+                <option value="3">開発部</option>
+                <option value="4">事務部</option>
+            </select>
+        </div>
+
+        <!-- メールアドレス -->
+        <div class="row">
+            <label>メールアドレス</label>
+            <input type="email" name="mailAddress" maxlength="100" required placeholder="nagoya.hiroshima@123">
+        </div>
+
+        <!-- 電話番号 -->
+        <div class="row">
+            <label>電話番号</label>
+            <input type="text" name="telephoneNum" maxlength="15" required placeholder="半角数字ハイフンなし">
+        </div>
+
+        <!-- 緊急連絡先 -->
+        <div class="row">
+            <label>緊急連絡先</label>
+            <input type="text" name="emergencyNum" maxlength="15" required placeholder="半角数字ハイフンなし">
+        </div>
+
+        <!-- 登録 -->
+        <div class="submit-area">
+            <button type="submit" class="register-btn">登録</button>
+        </div>
+
+    </form>
+</div>
+
+</body>
+</html>
